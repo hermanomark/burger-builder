@@ -22,7 +22,7 @@ class BurgerBuilder extends Component {
   // }
   state = {
     ingredients: null,
-    totalprice: 4,
+    totalPrice: 4,
     purchasable: false,
     purchasing: false,
     loading: false,
@@ -63,9 +63,9 @@ class BurgerBuilder extends Component {
     }
     updatedIngredients[type] = updatedCount;
     const priceAddition = INGREDIENT_PRICES[type];
-    const oldPrice = this.state.totalprice;
+    const oldPrice = this.state.totalPrice;
     const newPrice = oldPrice + priceAddition;
-    this.setState({totalprice: newPrice, ingredients: updatedIngredients});
+    this.setState({totalPrice: newPrice, ingredients: updatedIngredients});
     this.updatePurchaseState(updatedIngredients);
   }
 
@@ -80,9 +80,9 @@ class BurgerBuilder extends Component {
     }
     updatedIngredients[type] = updatedCount;
     const priceDeduction = INGREDIENT_PRICES[type];
-    const oldPrice = this.state.totalprice;
+    const oldPrice = this.state.totalPrice;
     const newPrice = oldPrice - priceDeduction;
-    this.setState({totalprice: newPrice, ingredients: updatedIngredients});
+    this.setState({totalPrice: newPrice, ingredients: updatedIngredients});
     this.updatePurchaseState(updatedIngredients);
   }
 
@@ -99,7 +99,7 @@ class BurgerBuilder extends Component {
     // this.setState({loading: true});
     // const order = {
     //   ingredients: this.state.ingredients,
-    //   price: this.state.totalPric,
+    //   price: this.state.totalPrice,
     //   customer: {
     //     name: 'Mark Hermano',
     //     address: {
@@ -123,6 +123,7 @@ class BurgerBuilder extends Component {
     for (let i in this.state.ingredients) {
       queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]))
     }
+    queryParams.push('price=' + this.state.totalPrice);
     const queryString = queryParams.join('&');
     this.props.history.push({
       pathname: '/checkout',
@@ -151,11 +152,11 @@ class BurgerBuilder extends Component {
               disabled={disabledInfo}
               purchasable={this.state.purchasable}
               ordered={this.purchaseHandler}
-              price={this.state.totalprice}
+              price={this.state.totalPrice}
             />
         </Aux>);
        orderSummary = <OrderSummary 
-                        price={this.state.totalprice}
+                        price={this.state.totalPrice}
                         ingredients={this.state.ingredients}
                         purchasedCancelled={this.purchaseCancelHandler}
                         purchaseContinued={this.purchaseContinueHandler}/>;
