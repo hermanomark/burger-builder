@@ -17,7 +17,7 @@ const order = (props) => {
     return <span 
       className={classes.Ingredients} 
       key={ig.name}>{ig.name} ({ig.amount})</span>
-  })
+  });
 
   return (
     <div className={classes.Order}>
